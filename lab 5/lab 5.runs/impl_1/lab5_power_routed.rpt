@@ -1,7 +1,7 @@
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
-| Date             : Mon Nov  2 00:48:51 2020
+| Date             : Mon Nov  2 16:59:00 2020
 | Host             : DESKTOP-39FN3EH running 64-bit major release  (build 9200)
 | Command          : report_power -file lab5_power_routed.rpt -pb lab5_power_summary_routed.pb -rpx lab5_power_routed.rpx
 | Design           : lab5
@@ -53,14 +53,14 @@ Table of Contents
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
 | Clocks         |     0.002 |        3 |       --- |             --- |
-| Slice Logic    |     0.002 |     1858 |       --- |             --- |
-|   LUT as Logic |     0.001 |      773 |     20800 |            3.72 |
+| Slice Logic    |     0.002 |     1995 |       --- |             --- |
+|   LUT as Logic |     0.001 |      886 |     20800 |            4.26 |
 |   CARRY4       |    <0.001 |       40 |      8150 |            0.49 |
-|   Register     |    <0.001 |      750 |     41600 |            1.80 |
-|   F7/F8 Muxes  |    <0.001 |      143 |     32600 |            0.44 |
+|   Register     |    <0.001 |      811 |     41600 |            1.95 |
+|   F7/F8 Muxes  |    <0.001 |      109 |     32600 |            0.33 |
 |   Others       |     0.000 |        6 |       --- |             --- |
-| Signals        |     0.002 |     1341 |       --- |             --- |
-| I/O            |     0.005 |       14 |       210 |            6.67 |
+| Signals        |     0.003 |     1511 |       --- |             --- |
+| I/O            |     0.004 |       14 |       210 |            6.67 |
 | Static Power   |     0.062 |          |           |                 |
 | Total          |     0.073 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
