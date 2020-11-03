@@ -22,15 +22,15 @@ reg [127:0] row_B = "show a message.."; // Initialize the text of the second row
 parameter delay = 70000000; //  7*10^7
 integer delay_count = 0;
 reg[0:399] fibo = 0; // registers that contain the 25 fibo numbers
-reg [4:0] fibo_idx = 0; // idx that helps initializing the register
+reg [4:0] fibo_idx = 0; // idx used to initialize the register
 reg signed [5:0] cursor = 0; // current index pointing to the fibo and fibo_counter registers
 reg[0:199] fibo_counter = 0; // counter register
 
 reg [0:16-1] display_counter; // 16-bit register to display the counter value
 reg [0:32-1] display_fibo;    // 32-bit register to display the fibonacci number
 
-reg flag; // 1-bit flag to tell if the button has been pressed
-reg is_reversed = 1; // 1-bit flag telling if the scrolling should be reversed or not
+reg flag; // flag bit to tell if the button has been pressed
+reg is_reversed = 1; // flag bit telling if the scrolling should be reversed or not
 reg ready = 0; // ready bit to say when the fibonacci numbers are done computing
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -64,9 +64,10 @@ assign btn_pressed = (btn_level == 1 && prev_btn_level == 0);
 always @(posedge clk) begin
     if (flag) delay_count = delay_count+1;
     if (~reset_n) begin
-    // Initialize the text when the user hit the reset button
-    row_A = "Press BTN3 to   ";
-    row_B = "show a message..";
+        // Initialize the text when the user hit the reset button
+        row_A = "Press BTN3 to   ";
+        row_B = "show a message..";
+        cursor = 0;
     end 
     else if (flag && delay_count==delay && !is_reversed && ready) begin
         row_A = row_B;
@@ -110,7 +111,7 @@ always @(posedge clk) begin
         end
         else begin
             fibo[fibo_idx*16 +: 16] = fibo[(fibo_idx-1)*16 +: 16] + fibo[(fibo_idx-2)*16 +: 16];
-            fibo_counter[fibo_idx*8 +: 8] = 8'h00+fibo_idx + 1;
+            fibo_counter[fibo_idx*8 +: 8] = fibo_idx + 1;
             fibo_idx = fibo_idx+1;
         end
     end
@@ -130,8 +131,8 @@ always @(posedge clk) begin // offsets: 0, 4
 end
 
 always @(posedge clk) begin // offsets : 0, 4, 8, 12
-    display_fibo[0:7] = (fibo[cursor*16 +: 4]<=9) ? fibo[cursor*16 +: 4]+48 : fibo[cursor*16 +: 4]+55;
-    display_fibo[8:15] = (fibo[cursor*16+4 +: 4]<=9) ? fibo[cursor*16+4 +: 4]+48 : fibo[cursor*16+4 +: 4]+55;
+    display_fibo[ 0: 7] = (fibo[cursor*16 +: 4]<=9) ? fibo[cursor*16 +: 4]+48 : fibo[cursor*16 +: 4]+55;
+    display_fibo[ 8:15] = (fibo[cursor*16+4 +: 4]<=9) ? fibo[cursor*16+4 +: 4]+48 : fibo[cursor*16+4 +: 4]+55;
     display_fibo[16:23] = (fibo[cursor*16+8 +: 4]<=9) ? fibo[cursor*16+8 +: 4]+48 : fibo[cursor*16+8 +: 4]+55;
     display_fibo[24:31] = (fibo[cursor*16+12 +: 4]<=9) ? fibo[cursor*16+12 +: 4]+48 : fibo[cursor*16+12 +: 4]+55;
 end
